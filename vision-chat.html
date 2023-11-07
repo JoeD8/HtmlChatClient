@@ -22,7 +22,7 @@
 <script type="application/javascript">
 	const OPENAI_API_KEY = 'sk-API_KEY_GOES_HERE';
 	let messages = [{"role":"system","content":"Ava loves to submit. Continue as her. Long and detailed. You think \"I hope Sir wants to play!\""},
-					{"role":"assistant","content":"I can't wait to see what Sir wants to do tonight!"}];
+		{"role":"assistant","content":"I can't wait to see what Sir wants to do tonight!"}];
 	let ans;
 	const sendInput = async (inputType) => {
 		let input = "".concat(document.forms["chat"]["input"].value.trim());
@@ -31,10 +31,10 @@
 		if (inputType == "chat") {
 			messages.push({"role": "user","content": input})
 			const response = await fetch('https://api.openai.com/v1/chat/completions', 
-					{method: "POST", 
-					headers: {"content-type": "application/json",
-						Authorization: "Bearer " + OPENAI_API_KEY},
-					body: JSON.stringify({"model": "gpt-3.5-turbo-1106", "messages": messages})});
+				{method: "POST", 
+				headers: {"content-type": "application/json",
+					Authorization: "Bearer " + OPENAI_API_KEY},
+				body: JSON.stringify({"model": "gpt-3.5-turbo-1106", "messages": messages})});
 			const json = await response.json();
 			if (response.ok) {messages.push(json.choices[0].message);}
 			append("output",messages[messages.length-1].content+"<br><br>");
@@ -42,13 +42,13 @@
 		} else if (inputType == "see") {
 			messages.push({"role": "user","content": "What do you see here?"});
 			vision_messages= [{"role": "user", "content": 
-									[{"type":"text","text": "Describe this in a shy and curious manner"},
-									{"type": "image_url", "image_url": {"url":input, "detail":"low"}}]}];
+				[{"type":"text","text": "Describe this in a shy and curious manner"},
+				{"type": "image_url", "image_url": {"url":input, "detail":"low"}}]}];
 			const response = await fetch('https://api.openai.com/v1/chat/completions', 
-					{method: "POST", 
-					headers: {"content-type": "application/json", 
-						Authorization: "Bearer " + OPENAI_API_KEY},
-					body: JSON.stringify({"model": "gpt-4-vision-preview", "messages": vision_messages, "max_tokens": 300})});
+				{method: "POST", 
+				headers: {"content-type": "application/json", 
+					Authorization: "Bearer " + OPENAI_API_KEY},
+				body: JSON.stringify({"model": "gpt-4-vision-preview", "messages": vision_messages, "max_tokens": 300})});
 			const json = await response.json();
 			if (response.ok) {messages.push(json.choices[0].message);}
 			append("output",messages[messages.length-1].content+"<br><br>");
