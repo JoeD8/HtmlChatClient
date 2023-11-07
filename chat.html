@@ -38,6 +38,7 @@
 			append("output",messages[messages.length-1].content+"<br><br>");
 			document.forms["chat"]["input"].value = "";
 		} else if (inputType == "js") {
+			//if press the = button it will evaluate your input as javascript, i.e., 1+1 will return 2
 			try{ans = Object.getPrototypeOf(function() {}).constructor('"use strict";return('+input+')')();}
 			catch(err){ans = err.message;}
 			append("output",ans+"<br><br>");
