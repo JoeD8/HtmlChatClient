@@ -31,8 +31,8 @@
 		if (inputType == "chat") {
 			messages.push({"role": "user","content": input})
 			const response = await fetch('https://api.openai.com/v1/chat/completions', 
-					{method: "POST", body: JSON.stringify({"model": MODEL, "messages": messages}),
-					headers: {"content-type": "application/json", Authorization: "Bearer " + OPENAI_API_KEY}});
+				{method: "POST", body: JSON.stringify({"model": MODEL, "messages": messages}),
+				headers: {"content-type": "application/json", Authorization: "Bearer " + OPENAI_API_KEY}});
 			const json = await response.json();
 			if (response.ok) {messages.push(json.choices[0].message);}
 			append("output",messages[messages.length-1].content+"<br><br>");
